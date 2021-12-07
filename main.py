@@ -71,3 +71,4 @@ time.sleep(10) #sleep, giving the user time to end the script and return to linu
 #os.system("sudo shutdown now") #Linux shutdown
 #os.system("shutdown /s") #Windows shutdown
 
+
