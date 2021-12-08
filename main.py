@@ -5,10 +5,10 @@ import time
 import os
 import requests
 from datetime import datetime
+BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
+URL = BASE_URL + "q=" + "chesaning" + "&appid=" + "2a530c734a9fba21b6e3ffff2aa2c552"
 def start_root():
     now = datetime.now()
-    BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
-    URL = BASE_URL + "q=" + "chesaning" + "&appid=" + "2a530c734a9fba21b6e3ffff2aa2c552"
     response = requests.get(URL)
     # checking the status code of the request
     if response.status_code == 200:
@@ -48,12 +48,18 @@ def start_root():
                 city = tk.Tk()
                 city.lift()
                 city.attributes("-fullscreen", True)
+                entry=tk.Entry(city)
+                def updateCity():
+                    print(entry.get())
+                    global URL
+                    URL = BASE_URL + "q=" + f"{entry.get()}" + "&appid=" + "2a530c734a9fba21b6e3ffff2aa2c552"
+                    city.destroy()
                 entry = tk.Entry(city)
                 entry.pack()
-                submit = tk.Button(city, text="SUBMIT", command=city.destroy)
+                submit = tk.Button(city, text="SUBMIT", command=updateCity)
                 submit.pack()
                 city.mainloop()
-                URL = BASE_URL + "q=" + f"{entry.get}" + "&appid=" + "2a530c734a9fba21b6e3ffff2aa2c552"
+                print(URL)
                 returnToDeskOS()
             cityButton = tk.Button(options, text="Change OpenWeatherMap city", command=city)
             cityButton.pack()
