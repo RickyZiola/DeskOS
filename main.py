@@ -30,7 +30,7 @@ if response.status_code == 200:
 else:
    # showing the error message
    print("Error in the HTTP request")
-package = json.load(open("package.json"))
+package = json.load(open(os.path.dirname(os.path.abspath(__file__)) + "/package.json"))
 version = package["version"]
 root = tk.Tk()
 root.attributes("-fullscreen", True)
