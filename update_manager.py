@@ -48,4 +48,5 @@ if(filecmp.cmp("src/DeskOS/package.json", "updatecmp/DeskOS/package.json",shallo
 else:
   updateData.config(text="Up to date, version: v" + package["version"])
   updateData.update_idletasks()
+root.mainloop()
 os.system("rm -r -rf updatecmp; python src/DeskOS/main.py")
