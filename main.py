@@ -5,9 +5,12 @@ import time
 import os
 import requests
 from datetime import datetime
+import webbrowser
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
 URL = BASE_URL + "q=" + "chesaning" + "&appid=" + "2a530c734a9fba21b6e3ffff2aa2c552"
 def start_root():
+    def callback(url):
+        webbrowser.open_new(url)
     now = datetime.now()
     response = requests.get(URL)
     # checking the status code of the request
@@ -62,7 +65,18 @@ def start_root():
                 print(URL)
                 returnToDeskOS()
             cityButton = tk.Button(options, text="Change OpenWeatherMap city", command=city)
-            cityButton.pack()
+            cityButton.pack(fill=tk.X)
+            def donate():
+                options.destroy()
+                donate=tk.Tk()
+                dButton = tk.Button(donate, text="Donate with DonorBox", fg="blue", cursor="hand2", command=donate.destroy)
+                dButton.pack(fill=tk.X)
+                dButton.bind("<Button-1>", lambda e: callback("https://donorbox.org/the-deskos-project"))
+                donate.mainloop()
+                returnToDeskOS()
+            donateButton = tk.Button(options, text="Donate to the DeskOS project", command=donate)
+            donateButton.pack()
+            options.mainloop()
         settings.attributes("-fullscreen", True)
         root.destroy()
         menu1 = tk.Button(settings, text="General settings", command=general)
@@ -98,7 +112,7 @@ def start_root():
         if response.status_code == 200:
            data = response.json()
            temperature = round(((int(main['temp']) - 273.15) * 1.8) + 32)
-           temp.config(text=str(temperature) + "°F")
+           temp.config(text=str(temperature) + "°F, " + str(data["weather"][0]["description"]))
         else:
             temp.config(text="Failed HTTP read!")
         temp.update_idletasks()
