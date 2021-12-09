@@ -36,7 +36,7 @@ if(filecmp.cmp("src/DeskOS/package.json", "updatecmp/DeskOS/package.json",shallo
       package = json.load(open("src/DeskOS/package.json"))
     except:
       package = ""
-    #updateData.config(text="Updated to DeskOS v" + package["version"])
+    updateData.config(text="Updated to DeskOS v" + package["version"])
     updateData.update_idletasks()
   def cancel():
     updateData.config(text="Update cancelled.")
@@ -46,6 +46,6 @@ if(filecmp.cmp("src/DeskOS/package.json", "updatecmp/DeskOS/package.json",shallo
   confirmButton.pack()
   cancelButton.pack()
 else:
-  #updateData.config(text="Up to date, version: v" + package["version"])
+  updateData.config(text="Up to date, version: v" + package["version"])
   updateData.update_idletasks()
 os.system("rm -r -rf updatecmp; python src/DeskOS/main.py")
